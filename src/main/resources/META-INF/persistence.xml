@@ -8,16 +8,22 @@
     <persistence-unit name="loja" transaction-type="RESOURCE_LOCAL">
         <properties>
             <!--Database-->
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:loja"/>
-            <property name="javax.persistence.jdbc.user" value="sa"/>
-            <property name="javax.persistence.jdbc.password" value=""/>
+<!--            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>-->
+<!--            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:loja"/>-->
+<!--            <property name="javax.persistence.jdbc.user" value="sa"/>-->
+<!--            <property name="javax.persistence.jdbc.password" value=""/>-->
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>-->
+
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/loja_hibernate"/>
+            <property name="javax.persistence.jdbc.user" value="loja"/>
+            <property name="javax.persistence.jdbc.password" value="Loj@V1rtu4l"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
 
             <!--Configs-->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
 
         </properties>
     </persistence-unit>

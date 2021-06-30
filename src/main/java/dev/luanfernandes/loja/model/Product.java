@@ -7,14 +7,18 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"registrationDate"})
 @Entity
-@Table(name = "products")
+@ToString
+@NamedQuery(
+        name = "productsByCategoryName",
+        query = "SELECT p from Product p where p.category.name = :name"
+)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Product {
 
     @Id
@@ -23,9 +27,10 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
-    private LocalDateTime registrationDate = LocalDateTime.now();
+    private LocalDate registrationDate = LocalDate.now();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Category category;
 
     public Product(String name, String description, BigDecimal price, Category category) {

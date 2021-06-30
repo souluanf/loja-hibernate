@@ -1,7 +1,7 @@
-package dev.luanfernandes.loja;
+package dev.luanfernandes.loja.application;
 
 import dev.luanfernandes.loja.dao.CategoryDAO;
-import dev.luanfernandes.loja.dao.ProdutoDAO;
+import dev.luanfernandes.loja.dao.ProductDAO;
 import dev.luanfernandes.loja.model.Category;
 import dev.luanfernandes.loja.model.Product;
 import dev.luanfernandes.loja.util.JpaUtil;
@@ -10,19 +10,15 @@ import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class Program {
+public class ProductApplication {
     public static void main(String[] args) {
         registryProduct();
 
         EntityManager em = JpaUtil.getEntityManager();
-        ProdutoDAO produtoDAO = new ProdutoDAO(em);
+        ProductDAO productDAO = new ProductDAO(em);
 
-        List<Product> products = produtoDAO.findAByCategoryName("smartphone");
+        List<Product> products = productDAO.productsByCategoryName("SMARTPHONE");
         products.forEach(System.out::println);
-
-        BigDecimal productPrice = produtoDAO.findAPriceByProductName("Poco X3");
-        System.out.println(productPrice);
-
 
     }
 
@@ -31,15 +27,16 @@ public class Program {
         Product product = new Product("Poco X3", "Poco X3 NFC", new BigDecimal("1400"), category);
 
         EntityManager em = JpaUtil.getEntityManager();
-        ProdutoDAO produtoDAO = new ProdutoDAO(em);
+        ProductDAO productDAO = new ProductDAO(em);
         CategoryDAO categoryDAO = new CategoryDAO(em);
 
         em.getTransaction().begin();
 
         categoryDAO.save(category);
-        produtoDAO.save(product);
+        productDAO.save(product);
 
         em.getTransaction().commit();
+
         em.close();
     }
 }
